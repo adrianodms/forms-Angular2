@@ -1,0 +1,90 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" [ngClass]="aplicaCssErro(nome)" name="nome" id="nome" placeholder="Nome"
+        [(ngModel)]="usuario.nome" required #nome="ngModel">
+      <div class="invalid-feedback" role="alert" *ngIf="verificaValidTouched(nome)">
+        Nome é obrigatório
+      </div>
+    </div>
+
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" [ngClass]="aplicaCssErro(email)" name="email" id="email" placeholder="nome@email.com"
+        [(ngModel)]="usuario.email" required email #email="ngModel">
+      <div class="invalid-feedback" role="alert" *ngIf="verificaValidTouched(email)">
+        E-mail inválido
+      </div>
+    </div>
+  </div>
+
+  <div ngModelGroup="endereco">
+    <div class="form-group row">
+      <div class="col-md-3">
+        <label for="cep">CEP</label>
+        <input type="text" class="form-control" name="cep" id="cep" [ngClass]="aplicaCssErro(cep)" [(ngModel)]="usuario.cep"
+          required #cep="ngModel" (blur)="consultaCEP($event.target.value)">
+        <div class="invalid-feedback" role="alert" *ngIf="verificaValidTouched(cep)">
+          CEP Obrigatório
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="numero">Número</label>
+        <input type="text" class="form-control" name="numero" id="numero" [ngClass]="aplicaCssErro(numero)" [(ngModel)]="usuario.numero"
+          required #numero="ngModel">
+        <div class="invalid-feedback" role="alert" *ngIf="!numero.valid && numero.touched">
+          Número Obrigatório
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="complemento">Complememento</label>
+        <input type="text" class="form-control" name="complemento" id="complemento" [(ngModel)]="usuario.complemento"
+          required #complemento="ngModel">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <label for="rua">Rua</label>
+        <input type="text" class="form-control" name="rua" id="rua" [ngClass]="aplicaCssErro(rua)" [(ngModel)]="usuario.rua"
+          required readonly #rua="ngModel">
+        <div class="invalid-feedback" role="alert" *ngIf="!rua.valid && rua.touched">
+          Rua é obrigatório
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-5">
+        <label for="bairro">Bairro</label>
+        <input type="text" class="form-control" name="bairro" id="bairro" [ngClass]="aplicaCssErro(bairro)" [(ngModel)]="usuario.bairro"
+          required readonly #bairro="ngModel">
+        <div class="invalid-feedback" role="alert" *ngIf="!bairro.valid && bairro.touched">
+          Bairro é obrigatório
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="cidade">Cidade</label>
+        <input type="text" class="form-control" name="cidade" id="cidade" [ngClass]="aplicaCssErro(cidade)" [(ngModel)]="usuario.cidade"
+          required readonly #cidade="ngModel">
+        <div class="invalid-feedback" role="alert" *ngIf="!cidade.valid && cidade.touched">
+          Cidade é obrigatório
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="estado">Estado</label>
+        <input type="text" class="form-control" name="estado" id="estado" [ngClass]="aplicaCssErro(estado)" [(ngModel)]="usuario.estado"
+          required readonly #estado="ngModel">
+        <div class="invalid-feedback" role="alert" *ngIf="!estado.valid && estado.touched">
+          Estado é obrigatório
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+</form>
+
+<app-form-debug [form]="f"></app-form-debug>
